@@ -1,6 +1,4 @@
 ---
-layout: workshop.html
-tags: workshop
 metadata:
   title: BioNLP
   id: bionlp
