@@ -1,7 +1,7 @@
 ---
 layout: workshop.html
 tags: workshop
-conf:
+metadata:
   title: BioNLP
   id: bionlp
   conference: acl22

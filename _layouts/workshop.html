@@ -1,5 +1,5 @@
 ---
-permalink: "/workshop/{{ conf.conference }}--{{ conf.id }}/"
+permalink: "/workshop/{{ metadata.conference }}--{{ metadata.id }}/"
 ---
 <html>
   {% include "head.njk" %}
@@ -10,18 +10,18 @@ permalink: "/workshop/{{ conf.conference }}--{{ conf.id }}/"
             <div class="row">
                 <div class="col-xs-12 col-sm-12">
                   <h1>
-                    <a id="conf-title-href" href="/conference/{{ conf.id }}">{{ conf.title }} {{ conf.year }}</a>
+                    <a id="conf-title-href" href="/workshop/{{ metadata.conference }}--{{ metadata.id }}/">{{ metadata.title }} {{ metadata.year }}</a>
                     <span id="twitter-box">
-                      <a href="https://twitter.com/share" class="twitter-share-button" data-text="Countdown to the #{{ conf.title }}{{ conf.year }} deadline!" data-show-count="false" style="font-size:13px;">Tweet</a>
+                      <a href="https://twitter.com/share" class="twitter-share-button" data-text="Countdown to the #{{ metadata.title }}{{ metadata.year }} deadline!" data-show-count="false" style="font-size:13px;">Tweet</a>
                       <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
                     </span>
                   </h1>
                 </div>
                 <div class="meta deadline col-xs-12">
-                  <span id="conf-date">{{ conf.date }}</span>. <span id="conf-place">{{ conf.place }}</span>.<br>
+                  <span id="conf-date">{{ metadata.date }}</span>. <span id="conf-place">{{ metadata.place }}</span>.<br>
                 </div>
                 <div class="meta deadline col-xs-12 col-md-5">
-                  Deadline in timezone from conference website:
+                  Deadline in timezone from workshop website:
                 </div>
                 <div class="meta deadline col-xs-12 col-md-6">
                   <span class="deadline-time"></span>
@@ -38,7 +38,7 @@ permalink: "/workshop/{{ conf.conference }}--{{ conf.id }}/"
                   Website:
                 </div>
                 <div class="meta deadline col-xs-10 col-sm-11 col-md-7">
-                  <a id="conf-website" target="_blank" href="{{ conf.link }}">{{ conf.link }}</a><br>
+                  <a id="conf-website" target="_blank" href="{{ metadata.link }}">{{ metadata.link }}</a><br>
                 </div>
             </div>
         </div>
@@ -64,14 +64,14 @@ permalink: "/workshop/{{ conf.conference }}--{{ conf.id }}/"
           $('.local-timezone-hide').hide();
         }
 
-        {% if conf.deadline == "TBA" %}
+        {% if metadata.deadline == "TBA" %}
           $('#conf-timer').html("TBA");
           $('.deadline-time').html("TBA");
           $('.deadline-local-time').html("TBA");
         {% else %}
           // adjust date according to deadline timezone
-          var timezone = {% if conf.timezone %}"{{conf.timezone}}" {% else %} "America/New_York" {% endif %};
-          var confDate = moment.tz("{{conf.deadline}}", timezone);
+          var timezone = {% if metadata.timezone %}"{{ metadata.timezone }}" {% else %} "America/New_York" {% endif %};
+          var confDate = moment.tz("{{ metadata.deadline }}", timezone);
 
           // render countdown timer
           $('#conf-timer').countdown(confDate.toDate(), function(event) {
