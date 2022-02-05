@@ -5,6 +5,8 @@ author: Abhishek Das
 domain: "aideadlin.es"
 baseurl: ""
 
+ics_organizer: "aideadlin.es"
+
 twitter_hashtag: machinelearning
 github_username: paperswithcode
 github_repo: ai-deadlines
