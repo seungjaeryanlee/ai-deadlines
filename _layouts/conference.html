@@ -62,7 +62,7 @@ permalink: "/conference/{{ conf.id }}/"
         }
 
         $('#conf-title-href').text("{{conf.title}} {{conf.year}}");
-        $('#conf-title-href').attr('href', "/conference?id={{conf.id}}");
+        $('#conf-title-href').attr('href', "/conference/{{conf.id}}");
         $('#conf-date').text("{{conf.date}}");
         $('#conf-place').text("{{conf.place}}");
         $('#conf-website').text("{{conf.link}}");
