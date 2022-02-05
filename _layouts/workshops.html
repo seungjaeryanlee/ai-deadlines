@@ -42,11 +42,22 @@
                             "place",
                           ]
                         };
+                        const workshops = {{ collections.workshop | parseCollection | jsonify }};
+                        let filteredWorkshopIds = workshops.map(e => e.id);
 
                         $(document).ready(() => {
-                          const fuse = new Fuse({{ collections.workshop | parseCollection | jsonify }}, fuseOptions);
+                          const fuse = new Fuse(workshops, fuseOptions);
                           $("#searchbar").on("input", () => {
-                            const results = fuse.search($("#searchbar").val());
+                            if ($("#searchbar").val() === "") {
+                              filteredWorkshopIds = workshops.map(e => e.id);
+                            } else {
+                              filteredWorkshopIds = fuse.search($("#searchbar").val()).map((e) => e.item.id);
+                            }
+                            /* TODO: Creates bug in sub checkboxes: need to reimplement that */
+                            $(".ConfItem").hide();
+                            filteredWorkshopIds.forEach((workshopId) => {
+                              $(`#${workshopId}`).show();
+                            })
                           });
                         });
                       </script>
