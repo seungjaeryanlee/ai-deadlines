@@ -10,12 +10,15 @@ permalink: "/conference/{{ conf.id }}/"
             <div class="row">
                 <div class="col-xs-12 col-sm-12">
                   <h1>
-                    <a id="conf-title-href" nohref></a>
-                    <span id="twitter-box"></span>
+                    <a id="conf-title-href" href="/conference/{{ conf.id }}">{{ conf.title }} {{ conf.year }}</a>
+                    <span id="twitter-box">
+                      <a href="https://twitter.com/share" class="twitter-share-button" data-text="Countdown to the #{{ conf.title }}{{ conf.year }} deadline!" data-show-count="false" style="font-size:13px;">Tweet</a>
+                      <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+                    </span>
                   </h1>
                 </div>
                 <div class="meta deadline col-xs-12">
-                  <span id="conf-date"></span>. <span id="conf-place"></span>.<br>
+                  <span id="conf-date">{{ conf.date }}</span>. <span id="conf-place">{{ conf.place }}</span>.<br>
                 </div>
                 <div class="meta deadline col-xs-12 col-md-5">
                   Deadline in timezone from conference website:
@@ -35,7 +38,7 @@ permalink: "/conference/{{ conf.id }}/"
                   Website:
                 </div>
                 <div class="meta deadline col-xs-10 col-sm-11 col-md-7">
-                  <a id="conf-website" target="_blank" nohref></a><br>
+                  <a id="conf-website" target="_blank" href="{{ conf.link }}">{{ conf.link }}</a><br>
                 </div>
             </div>
         </div>
@@ -61,14 +64,6 @@ permalink: "/conference/{{ conf.id }}/"
           $('.local-timezone-hide').hide();
         }
 
-        $('#conf-title-href').text("{{conf.title}} {{conf.year}}");
-        $('#conf-title-href').attr('href', "/conference/{{conf.id}}");
-        $('#conf-date').text("{{conf.date}}");
-        $('#conf-place').text("{{conf.place}}");
-        $('#conf-website').text("{{conf.link}}");
-        $('#conf-website').attr('href', "{{conf.link}}");
-        var twitter_slug = '<a href="https://twitter.com/share" class="twitter-share-button" data-text="Countdown to the #{{ conf.title }}{{ conf.year }} deadline!" data-show-count="false" style="font-size:13px;">Tweet</a><script async src="//platform.twitter.com/widgets.js" charset="utf-8">';
-        $('#twitter-box').html(twitter_slug);
         {% if conf.deadline == "TBA" %}
           $('#conf-timer').html("TBA");
           $('.deadline-time').html("TBA");
