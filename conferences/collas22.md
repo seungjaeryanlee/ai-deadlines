@@ -1,5 +1,5 @@
 ---
-layout: "conference.html"
+layout: conference.html
 tags: conference
 conf:
   title: CoLLAs
@@ -12,4 +12,5 @@ conf:
   date: August 29-31, 2022
   place: Online
   sub: ML
+
 ---
