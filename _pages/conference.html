@@ -100,7 +100,7 @@ permalink:  /conference/
           $('.local-timezone-hide').hide();
         }
 
-        {% for conf in site.data.conferences %}
+        {% for conf in conferences %}
             if (conf == "{{ conf.id }}") {
               $('#conf-title-href').text("{{conf.title}} {{conf.year}}");
               $('#conf-title-href').attr('href', "/conference?id={{conf.id}}");
