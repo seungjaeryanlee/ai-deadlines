@@ -29,8 +29,27 @@
                   <form class="form-horizontal">
                     <div class="form-group">
                       <div class="col-xs-8 col-xs-offset-2">
-                        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                        <input id="searchbar" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
                       </div>
+                      <script>
+                        const fuseOptions = {
+                          shouldSort: false,
+                          threshold: 0,
+                          useExtendedSearch: true,
+                          keys: [
+                            "title",
+                            "conference",
+                            "place",
+                          ]
+                        };
+
+                        $(document).ready(() => {
+                          const fuse = new Fuse({{ collections.workshop | parseCollection | jsonify }}, fuseOptions);
+                          $("#searchbar").on("input", () => {
+                            const results = fuse.search($("#searchbar").val());
+                          });
+                        });
+                      </script>
                     </div>
                     <div class="form-group">
                       {% for type in types %}
