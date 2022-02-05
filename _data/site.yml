@@ -1,17 +1,14 @@
-title: AI Conference Deadlines
-description: Countdowns to top CV/NLP/ML/Robotics/AI conference deadlines
-author: Abhishek Das
+title: AI Workshop Deadlines
+description: Countdowns to top CV/NLP/ML/Robotics/AI workshop deadlines
+author: Ryan Lee
 
-domain: "aideadlin.es"
+domain: "ryanlee.ai"
 baseurl: ""
 
-ics_organizer: "aideadlin.es"
+ics_organizer: "ryanlee.ai"
 
 twitter_hashtag: machinelearning
-github_username: paperswithcode
+github_username: seungajeryanlee
 github_repo: ai-deadlines
 
-markdown: kramdown
 ga_id:
-
-include: ['_pages']
