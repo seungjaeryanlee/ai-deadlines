@@ -58,11 +58,12 @@
         </div>
         <div id="confs">
         <div id="coming_confs">
-          {% for conf in conferences %}
+          {% for conference in collections.conference %}
+          {% assign conf = conference.data.conf %}
           <div id="{{conf.id}}" class="ConfItem {% for sub in conf.sub %} {{sub}}-conf {% endfor %}">
             <div class="row conf-row">
                 <div class="col-xs-5 col-sm-6">
-                    <a class="conf-title" href="/conference?id={{ conf.id }}">{{conf.title}} {{conf.year}}</a>
+                    <a class="conf-title" href="/conference/{{ conf.id }}">{{conf.title}} {{conf.year}}</a>
                 </div>
                 <div class="col-xs-7 col-sm-6">
                   <span class="timer"></span>
@@ -157,7 +158,8 @@
           name2sub[conf_type_data[i]['name']] = conf_type_data[i]['sub'];
         }
 
-        {% for conf in conferences %}
+        {% for conference in collections.conference %}
+        {% assign conf = conference.data.conf %}
         {% for sub in conf.sub %}
         $('#{{conf.id}} .{{sub}}-tag').html(sub2name["{{sub}}"].toLocaleLowerCase());
         {% endfor %}

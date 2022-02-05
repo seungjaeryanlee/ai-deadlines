@@ -1,0 +1,94 @@
+---
+permalink: "/conference/{{ conf.id }}/"
+---
+<html>
+  {% include "head.njk" %}
+  <body>
+    <div class="top-strip"></div>
+    <div class="container">
+        <div class="page-header" id="conf-title">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12">
+                  <h1>
+                    <a id="conf-title-href" href="/conference/{{ conf.id }}">{{ conf.title }} {{ conf.year }}</a>
+                    <span id="twitter-box">
+                      <a href="https://twitter.com/share" class="twitter-share-button" data-text="Countdown to the #{{ conf.title }}{{ conf.year }} deadline!" data-show-count="false" style="font-size:13px;">Tweet</a>
+                      <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+                    </span>
+                  </h1>
+                </div>
+                <div class="meta deadline col-xs-12">
+                  <span id="conf-date">{{ conf.date }}</span>. <span id="conf-place">{{ conf.place }}</span>.<br>
+                </div>
+                <div class="meta deadline col-xs-12 col-md-5">
+                  Deadline in timezone from conference website:
+                </div>
+                <div class="meta deadline col-xs-12 col-md-6">
+                  <span class="deadline-time"></span>
+                </div>
+                <span class="local-timezone-hide">
+                  <div class="meta deadline col-xs-12 col-md-5">
+                    Deadline in your local <span class="local-timezone">America/New_York</span> timezone:
+                  </div>
+                  <div class="meta deadline col-xs-12 col-md-6">
+                    <span class="deadline-local-time"></span>
+                  </div>
+                </span>
+                <div class="meta deadline col-xs-2 col-sm-1 col-md-5">
+                  Website:
+                </div>
+                <div class="meta deadline col-xs-10 col-sm-11 col-md-7">
+                  <a id="conf-website" target="_blank" href="{{ conf.link }}">{{ conf.link }}</a><br>
+                </div>
+            </div>
+        </div>
+        <div>
+          <div class="row">
+              <div class="col-xs-12">
+                <span id="conf-timer"></span>
+                <br>
+              </div>
+          </div>
+          <br>
+          <hr>
+        </div>
+        {% include "footer.njk" %}
+    </div>
+    <script type="text/javascript" charset="utf-8">
+    $(function() {
+        try {
+          var local_timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+          $('.local-timezone').text(local_timezone.toString());
+        }
+        catch(err) {
+          $('.local-timezone-hide').hide();
+        }
+
+        {% if conf.deadline == "TBA" %}
+          $('#conf-timer').html("TBA");
+          $('.deadline-time').html("TBA");
+          $('.deadline-local-time').html("TBA");
+        {% else %}
+          // adjust date according to deadline timezone
+          var timezone = {% if conf.timezone %}"{{conf.timezone}}" {% else %} "America/New_York" {% endif %};
+          var confDate = moment.tz("{{conf.deadline}}", timezone);
+
+          // render countdown timer
+          $('#conf-timer').countdown(confDate.toDate(), function(event) {
+            $(this).html(event.strftime('%D days %Hh %Mm %Ss'));
+          });
+          $('.deadline-time').html(confDate.toString());
+
+          // convert deadline to local timezone
+          try {
+            var localConfDate = moment.tz(confDate, local_timezone);
+            $('.deadline-local-time').html(localConfDate.toString());
+          }
+          catch(err) {
+            console.log("Error converting to local timezone.");
+          }
+        {% endif %}
+    });
+    </script>
+  </body>
+</html>
